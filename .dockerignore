@@ -4,3 +4,4 @@
 config/openai.local.php
 uploads/*.pdf
 *.log
+
