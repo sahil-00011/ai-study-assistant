@@ -1,0 +1,21 @@
+# Configuration files with secrets
+.env
+config/openai.local.php
+config/config.local.php
+
+# User uploads
+uploads/*
+!uploads/.htaccess
+!uploads/index.html
+
+# Composer
+vendor/
+composer.lock
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+

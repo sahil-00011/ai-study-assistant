@@ -1,0 +1,86 @@
+/**
+ * AI Study Assistant - Responsive Stylesheet
+ * Ensures perfect rendering across Mobile, Tablet, and Desktop
+ */
+
+/* Mobile & Tablet Breakpoint (max-width: 991.98px) */
+@media (max-width: 991.98px) {
+    .app-sidebar {
+        transform: translateX(-100%);
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.35);
+    }
+
+    .app-sidebar.show {
+        transform: translateX(0);
+    }
+
+    .app-main {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+
+    .sidebar-backdrop {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1035;
+    }
+
+    .sidebar-backdrop.show {
+        display: block;
+    }
+
+    .hero-title {
+        font-size: 2.25rem;
+    }
+
+    .chat-wrapper {
+        flex-direction: column;
+        height: calc(100vh - 150px);
+    }
+
+    .chat-history-sidebar {
+        width: 100%;
+        height: 180px;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .page-content {
+        padding: 1.25rem 1rem;
+    }
+
+    .app-topbar {
+        padding: 0 1rem;
+    }
+}
+
+/* Small Smartphone Breakpoint (max-width: 575.98px) */
+@media (max-width: 575.98px) {
+    .hero-title {
+        font-size: 1.85rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .chat-bubble {
+        max-width: 92%;
+        padding: 0.85rem 1rem;
+    }
+
+    .auth-card {
+        padding: 1.5rem 1rem !important;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .quiz-option-card {
+        padding: 0.75rem 1rem;
+    }
+}
+
