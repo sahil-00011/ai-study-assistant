@@ -1,10 +1,10 @@
 AI STUDY ASSISTANT - LIVE PUBLIC LINK
 ======================================
-URL (Direct / No Password):
-https://ask-administrator-logs-retail.trycloudflare.com/ai-study-assistant/
+URL (Direct / No Password / HTTP2):
+https://expect-sheet-caring-clothing.trycloudflare.com/ai-study-assistant/
 
 Root URL (Auto-Redirects):
-https://ask-administrator-logs-retail.trycloudflare.com/
+https://expect-sheet-caring-clothing.trycloudflare.com/
 
 GitHub Repository:
 https://github.com/sahil-00011/ai-study-assistant

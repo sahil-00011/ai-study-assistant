@@ -11,4 +11,7 @@ timeout /t 2 /nobreak >nul
 
 if exist "E:\chotu AI\bin\tunnel\tunnel.log" del /f /q "E:\chotu AI\bin\tunnel\tunnel.log"
 
-"E:\chotu AI\bin\tunnel\cloudflared.exe" tunnel --edge-ip-version 4 --url http://127.0.0.1:80 --logfile "E:\chotu AI\bin\tunnel\tunnel.log"
+:loop
+"E:\chotu AI\bin\tunnel\cloudflared.exe" tunnel --protocol http2 --edge-ip-version 4 --url http://127.0.0.1:80 --logfile "E:\chotu AI\bin\tunnel\tunnel.log"
+timeout /t 3 /nobreak >nul
+goto loop
