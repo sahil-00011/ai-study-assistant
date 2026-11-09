@@ -54,7 +54,9 @@ if (!defined('BASE_URL')) {
     if (getenv('BASE_URL')) {
         define('BASE_URL', rtrim(getenv('BASE_URL'), ' /'));
     } else {
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+        $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+            || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+        $protocol = $isHttps ? "https://" : "http://";
         $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
         $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
 
