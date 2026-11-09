@@ -50,22 +50,25 @@ if (file_exists($envFile)) {
 }
 
 // Determine Base URL dynamically
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
-$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-$scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+if (!defined('BASE_URL')) {
+    if (getenv('BASE_URL')) {
+        define('BASE_URL', rtrim(getenv('BASE_URL'), ' /'));
+    } else {
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
 
-// Normalize base URL so it points to /ai-study-assistant
-if (strpos($scriptDir, '/admin') !== false) {
-    $scriptDir = preg_replace('/\/admin.*$/', '', $scriptDir);
+        // Normalize base URL so it removes /admin or /api subpaths
+        if (strpos($scriptDir, '/admin') !== false) {
+            $scriptDir = preg_replace('/\/admin.*$/', '', $scriptDir);
+        }
+        if (strpos($scriptDir, '/api') !== false) {
+            $scriptDir = preg_replace('/\/api.*$/', '', $scriptDir);
+        }
+        $basePath = rtrim($scriptDir, '/');
+        define('BASE_URL', $protocol . $host . $basePath);
+    }
 }
-if (strpos($scriptDir, '/api') !== false) {
-    $scriptDir = preg_replace('/\/api.*$/', '', $scriptDir);
-}
-$basePath = rtrim($scriptDir, '/');
-if (empty($basePath)) {
-    $basePath = '/ai-study-assistant';
-}
-define('BASE_URL', $protocol . $host . $basePath);
 
 // Session Security Configuration
 if (session_status() === PHP_SESSION_NONE) {

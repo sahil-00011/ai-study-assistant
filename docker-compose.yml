@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=ai_study_assistant
+      - DB_USER=study_user
+      - DB_PASS=study_secret_pass
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENAI_MODEL=${OPENAI_MODEL:-}
+    depends_on:
+      - db
+    volumes:
+      - ./uploads:/var/www/html/uploads
+
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_secret_pass
+      MYSQL_DATABASE: ai_study_assistant
+      MYSQL_USER: study_user
+      MYSQL_PASSWORD: study_secret_pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/ai_study_assistant.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  db_data:

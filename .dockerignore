@@ -1,0 +1,6 @@
+.git
+.gitignore
+.env
+config/openai.local.php
+uploads/*.pdf
+*.log
