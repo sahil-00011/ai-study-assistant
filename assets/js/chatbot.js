@@ -117,6 +117,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Mobile Sidebar Drawer Controls
+    const toggleSidebarBtn = document.getElementById('toggleChatHistoryBtn');
+    const closeSidebarBtn = document.getElementById('closeChatHistoryBtn');
+    const historySidebar = document.getElementById('chatHistorySidebar');
+    const historyBackdrop = document.getElementById('chatHistoryBackdrop');
+
+    const closeMobileHistory = () => {
+        if (historySidebar) historySidebar.classList.remove('show-sidebar');
+        if (historyBackdrop) historyBackdrop.classList.remove('show-backdrop');
+    };
+
+    if (toggleSidebarBtn && historySidebar) {
+        toggleSidebarBtn.addEventListener('click', () => {
+            historySidebar.classList.toggle('show-sidebar');
+            if (historyBackdrop) historyBackdrop.classList.toggle('show-backdrop');
+        });
+    }
+
+    if (closeSidebarBtn) {
+        closeSidebarBtn.addEventListener('click', closeMobileHistory);
+    }
+    if (historyBackdrop) {
+        historyBackdrop.addEventListener('click', closeMobileHistory);
+    }
+
+    // Scroll-to-bottom floating button
+    const chatMessagesEl = document.getElementById('chatMessages');
+    const scrollBottomBtn = document.getElementById('scrollToBottomBtn');
+
+    if (chatMessagesEl && scrollBottomBtn) {
+        chatMessagesEl.addEventListener('scroll', () => {
+            const distanceFromBottom = chatMessagesEl.scrollHeight - chatMessagesEl.scrollTop - chatMessagesEl.clientHeight;
+            if (distanceFromBottom > 120) {
+                scrollBottomBtn.classList.add('visible');
+            } else {
+                scrollBottomBtn.classList.remove('visible');
+            }
+        }, { passive: true });
+
+        scrollBottomBtn.addEventListener('click', () => {
+            scrollToBottom(true);
+        });
+    }
+
     // Attach click events to conversation items
     setupConversationItemEvents();
 
@@ -232,7 +276,13 @@ function setupConversationItemEvents() {
         const delBtn = item.querySelector('.delete-conv-btn');
 
         if (titleBtn) {
-            titleBtn.onclick = () => loadConversation(id);
+            titleBtn.onclick = () => {
+                loadConversation(id);
+                const historySidebar = document.getElementById('chatHistorySidebar');
+                const historyBackdrop = document.getElementById('chatHistoryBackdrop');
+                if (historySidebar) historySidebar.classList.remove('show-sidebar');
+                if (historyBackdrop) historyBackdrop.classList.remove('show-backdrop');
+            };
         }
 
         if (delBtn) {
@@ -374,10 +424,15 @@ function appendErrorMessage(msg) {
     scrollToBottom();
 }
 
-function scrollToBottom() {
+function scrollToBottom(smooth = true) {
     const container = document.getElementById('chatMessages');
     if (container) {
-        container.scrollTop = container.scrollHeight;
+        requestAnimationFrame(() => {
+            container.scrollTo({
+                top: container.scrollHeight,
+                behavior: smooth ? 'smooth' : 'auto'
+            });
+        });
     }
 }
 

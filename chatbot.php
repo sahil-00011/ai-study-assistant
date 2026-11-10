@@ -29,12 +29,18 @@ require_once __DIR__ . '/includes/header.php';
 
 <div class="page-content py-3">
     <div class="chat-wrapper shadow-sm">
+        <!-- Backdrop for mobile drawer -->
+        <div class="chat-history-backdrop" id="chatHistoryBackdrop"></div>
+
         <!-- Sidebar: Conversation History -->
-        <div class="chat-history-sidebar">
-            <div class="chat-history-header d-flex align-items-center justify-content-between">
-                <button type="button" class="btn btn-primary btn-sm w-100 d-flex align-items-center justify-content-center gap-2" id="newChatBtn">
+        <div class="chat-history-sidebar" id="chatHistorySidebar">
+            <div class="chat-history-header d-flex align-items-center justify-content-between gap-2">
+                <button type="button" class="btn btn-primary btn-sm flex-grow-1 d-flex align-items-center justify-content-center gap-2" id="newChatBtn">
                     <i class="bi bi-plus-lg"></i>
                     <span>New Chat</span>
+                </button>
+                <button type="button" class="btn btn-light btn-sm d-lg-none" id="closeChatHistoryBtn" title="Close History">
+                    <i class="bi bi-x-lg"></i>
                 </button>
             </div>
 
@@ -65,6 +71,9 @@ require_once __DIR__ . '/includes/header.php';
             <!-- Chat Header -->
             <div class="p-3 border-bottom d-flex flex-wrap align-items-center justify-content-between gap-2 bg-body-tertiary">
                 <div class="d-flex align-items-center gap-2">
+                    <button type="button" class="btn btn-outline-secondary btn-sm d-lg-none" id="toggleChatHistoryBtn" title="View History">
+                        <i class="bi bi-clock-history"></i>
+                    </button>
                     <div class="avatar-circle" style="width: 34px; height: 34px; background: linear-gradient(135deg, #4F46E5, #06B6D4); font-size: 0.9rem;">
                         <i class="bi bi-robot"></i>
                     </div>
@@ -123,6 +132,11 @@ require_once __DIR__ . '/includes/header.php';
                     </div>
                 </div>
             </div>
+
+            <!-- Floating Scroll-to-Bottom Button -->
+            <button type="button" class="scroll-to-bottom-btn shadow-sm" id="scrollToBottomBtn" title="Scroll to latest message" aria-label="Scroll to bottom">
+                <i class="bi bi-chevron-down"></i>
+            </button>
 
             <!-- Chat Input Area -->
             <div class="chat-input-container">
