@@ -22,9 +22,10 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . /var/www/html/
 
-# Copy and setup entrypoint script
+# Copy entrypoint script and ensure Unix line endings and executable permissions
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+RUN sed -i 's/\r$//' /usr/local/bin/docker-entrypoint.sh \
+    && chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Set directory permissions
 RUN chown -R www-data:www-data /var/www/html \

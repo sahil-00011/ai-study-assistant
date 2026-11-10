@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } catch (Exception $e) {
             error_log("Registration error: " . $e->getMessage());
-            $errors[] = 'A database error occurred. Please try again.';
+            $errors[] = 'Database error: ' . htmlspecialchars($e->getMessage());
         }
     }
 }
